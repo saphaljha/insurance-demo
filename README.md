@@ -6,9 +6,9 @@ A robust Spring Boot application designed to manage insurance claims, streamline
 
 ## Tech Stack & Architecture
 
-- **Backend Framework:** Spring Boot 3.3.0
+- **Backend Framework:** Spring Boot 4.1.2
 - **Data Persistence:** Spring Data JPA, Hibernate
-- **Database:** H2 Database (in-memory for local testing)
+- **Database:** H2 (in-memory) and PostgreSQL
 - **Validation & Exceptions:** Jakarta Validation, Custom Exception Handling
 - **Testing:** JUnit 5, Mockito
 - **Build Tool:** Maven
@@ -30,7 +30,9 @@ claims-service/
 │   │   │   ├── service/         # Core Business Logic
 │   │   │   └── workflow/        # Workflow State Transition Engine
 │   │   └── resources/
-│   │       └── application.properties # Datasource & H2 Console settings
+│   │       ├── application.properties          # Default profile and common settings
+│   │       ├── application-h2.properties       # H2 datasource and console settings
+│   │       └── application-postgres.properties # PostgreSQL datasource settings
 │   └── test/
 │       └── java/com/insurance/claims/claims_service/
 │           └── service/         # Unit Tests (ClaimServiceTest)
@@ -42,7 +44,7 @@ claims-service/
 ## Getting Started & Running Locally
 
 ### Prerequisites
-- Java 17 or higher installed.
+- JDK 25 installed.
 - Maven installed (or use the provided `./mvnw` wrapper).
 
 ### 1. Build the Project
@@ -58,10 +60,20 @@ mvn test -Dtest=ClaimServiceTest
 ```
 
 ### 3. Start the Spring Boot Application
-Launch the embedded server on port `8080`:
+
+The application uses the `postgres` profile by default. It connects to a PostgreSQL database at `localhost:5432/claims_db`; configure the database and credentials in `application-postgres.properties` for your environment.
+
+To run with the default PostgreSQL profile:
 ```bash
 mvn spring-boot:run
 ```
+
+To use the in-memory H2 database instead:
+```bash
+mvn spring-boot:run -Dspring-boot.run.profiles=h2
+```
+
+Both profiles use port `8080`. H2 data is in-memory and is cleared when the application stops. The H2 console is available at `http://localhost:8080/h2-console` only when the `h2` profile is active. Its JDBC URL is `jdbc:h2:mem:claimsdb`, username is `sa`, and password is blank.
 
 ---
 
@@ -134,13 +146,6 @@ Retrieves the complete state transition history for a given claim.
 - **Method:** `GET`
 
 ---
-
-## H2 Database Console
-While the application is running, you can inspect the in-memory H2 database directly via your browser:
-- **URL:** `http://localhost:8080/h2-console`
-- **JDBC URL:** `jdbc:h2:mem:claimsdb`
-- **Username:** `sa`
-- **Password:** *(leave blank)*
 
 ## Postman collection is available in the below json file on root
 
