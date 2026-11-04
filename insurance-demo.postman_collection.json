@@ -1,0 +1,135 @@
+{
+  "info": {
+    "_postman_id": "5cf872a5-dc68-4588-a4e7-adfaa635c40f",
+    "name": "insurance-demo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "8253309",
+    "_collection_link": "https://go.postman.co/collection/8253309-5cf872a5-dc68-4588-a4e7-adfaa635c40f?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "submit-claim",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"policyNumber\": \"POL-12345\",\n    \"customerId\": \"CUST-001\",\n    \"claimType\": \"AUTO\",\n    \"incidentDate\": \"2026-11-01\",\n    \"claimedAmount\": 1500.00,\n    \"claimDescription\": \"Car bumper damage in parking lot.\"\n  }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/claims",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "claims"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Claim By ID",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "List All Claims",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Review a Claim",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Approve a Claim",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"decision\": \"APPROVED\",\n    \"approvedAmount\": 1400.00,\n    \"decidedBy\": \"REV-99\"\n  }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/claims/1/decision",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "claims",
+            "1",
+            "decision"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "View Audit Trail History",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/claims/1/history",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "claims",
+            "1",
+            "history"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reject a claim",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ]
+}
